@@ -1,10 +1,11 @@
 # /tantalus
 Tantalus is a mass machine controller system / Remote Access Trojan built in Python &amp; C
 
-I've prewritten malware agents/connectors in the following languages:
+I've written malware agents/connectors in the following languages:
   - python
   - golang
   - c
+  - more in the future
 
 *the malware victim/connector files in this repository are written poorly and will be rewritten soon*
 
