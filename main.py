@@ -7,7 +7,7 @@ import logging
 from flask import (
     Flask,
     request,
-	redirect,
+    redirect,
     url_for,
     render_template,
     session
@@ -26,9 +26,9 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 		Dataclass.__init__(self)
 
 		app = Flask(API_NAME,
-					static_url_path='', 
-					static_folder='frontend/static',
-					template_folder='frontend/templates')
+                            static_url_path='', 
+                            static_folder='frontend/static',
+                            template_folder='frontend/templates')
 
 		log = logging.getLogger('werkzeug')
 		log.disabled = True
@@ -71,10 +71,10 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 				return redirect(url_for('edit_server'))
 
 			return render_template("dashboard.html",
-								   session=session,
-								   bots=self.session_bots,
-								   users=self.get_accounts(),
-								   msg='')
+                                               session=session,
+                                               bots=self.session_bots,
+                                               users=self.get_accounts(),
+                                               msg='')
 
 		@app.route("/server", methods=["GET"])
 		def edit_server():
@@ -85,10 +85,10 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 				if not self._started else "Warning: Server already started!"
 
 			return render_template("server.html",
-								   session=session,
-								   started=self._started,
-								   defaults=DEFAULTS,
-								   msg=msg)
+                                               session=session,
+                                               started=self._started,
+                                               defaults=DEFAULTS,
+                                               msg=msg)
 
 		@app.route("/bots", methods=["GET"])
 		def tables():
@@ -106,7 +106,8 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 			if not self._started:
 				return redirect(url_for('edit_server'))
 
-			return render_template("map.html", bots=self.session_bots, session=session,)
+			return "unfinished"
+			#return render_template("map.html", bots=self.session_bots, session=session,)
 
 		@app.route("/api", methods=["GET"])
 		def api_docs():
@@ -130,19 +131,19 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 
 			if self._started:
 				return render_template("server.html",
-									   session=session,
-									   started=self._started,
-					                   defaults=DEFAULTS,
-					                   msg="Warning: Server already started!")
+                                                       session=session,
+                                                       started=self._started,
+                                                       defaults=DEFAULTS,
+                                                       msg="Warning: Server already started!")
 
 			port = request.form['port']
 			api_secret = request.form['api-secret']
 
 			if port=="" or api_secret=="" or not port.isdigit():
 				return render_template("server.html",
-									   started=self._started,
-					                   defaults=DEFAULTS,
-					                   msg="Warning: Invalid port or API secret!")
+                                                       started=self._started,
+                                                       defaults=DEFAULTS,
+                                                       msg="Warning: Invalid port or API secret!")
 
 			self._started = True
 			Socket.__init__(self, connect=("0.0.0.0", int(port)))
@@ -160,18 +161,18 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 
 			if new_password_one != new_password_two:
 				return render_template('profile.html',
-										session=session,
-										msg="Failed: New passwords didn't match")
+                                                       session=session,
+                                                       msg="Failed: New passwords didn't match")
 			else:
 				alert_wk = self.change_user_password(session['username'], current_password, new_password_one)
-				print(alert_wk)
+
 				if alert_wk[1]:
 					session.clear()
 					return render_template('login.html', msg=alert_wk[0])
 				else:
 					return render_template('profile.html',
-											session=session,
-											msg=alert_wk[0])
+                                                               session=session,
+                                                               msg=alert_wk[0])
 
 		@app.route("/api/change-username", methods=["POST"])
 		def change_username():
@@ -193,7 +194,7 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 
 
 	def listen_for_command(self):
-		"""listen for commands to process"""
+		"""simple cli for now -- THIS WILL BE REWRITTEN AND IS ONLY TEMPORARY!!"""
 
 		cmd = get_inp().strip()
 		match cmd.split():
