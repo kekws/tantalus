@@ -190,7 +190,7 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 
 		app.secret_key = API_SECRET_KEY
 		app.debug = API_DEBUG
-		app.run(ssl_context='adhoc', port=API_PORT)
+		app.run(port=API_PORT)
 
 
 	def listen_for_command(self):
