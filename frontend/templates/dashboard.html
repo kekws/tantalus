@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <title>
+    Dashboard
+  </title>
+  <link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,600,700,800" rel="stylesheet" />
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/black-dashboard.css?v=1.0.0" rel="stylesheet" />
+</head>
+
+<body class="">
+  <div class="wrapper">
+    <div class="sidebar">
+      <div class="sidebar-wrapper">
+        <div class="logo">
+          <a href="javascript:void(0)" class="simple-text logo-mini">
+            T.
+          </a>
+          <a href="javascript:void(0)" class="simple-text logo-normal">
+            Tantalus
+          </a>
+        </div>
+        <ul class="nav">
+          <li class="active ">
+            <a href="#">
+              <i class="tim-icons icon-app"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('tables') }}">
+              <i class="tim-icons icon-laptop"></i>
+              <p>Connections</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('bot_map') }}">
+              <i class="tim-icons icon-pin"></i>
+              <p>Bot Map</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('edit_server') }}">
+              <i class="tim-icons icon-puzzle-10"></i>
+              <p>Server Builder</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('api_docs') }}">
+              <i class="tim-icons icon-atom"></i>
+              <p>API</p>
+            </a>
+          </li>
+          <li>
+            <a href="{{ url_for('profile') }}">
+              <i class="tim-icons icon-single-02"></i>
+              <p>Profile</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="main-panel">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-absolute navbar-transparent">
+        <div class="container-fluid">
+          <div class="navbar-wrapper">
+            <div class="navbar-toggle d-inline">
+              <button type="button" class="navbar-toggler">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navigation">
+            <ul class="navbar-nav ml-auto">
+              <li class="dropdown nav-item">
+                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                  {{session['username']}}
+                  <b class="caret d-none d-lg-block d-xl-block"></b>
+                </a>
+                <ul class="dropdown-menu dropdown-navbar">
+                  <li class="nav-link"><a href="{{ url_for('profile') }}" class="nav-item dropdown-item">Profile</a></li>
+                  <li class="nav-link"><a href="{{ url_for('profile') }}" class="nav-item dropdown-item">Settings</a></li>
+                </ul>
+              </li>
+              <li class="separator d-lg-none"></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="content">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card">
+              <div class="card-header">
+                <h5 class="title">Attack Panel</h5>
+              </div>
+              <form action="{{ url_for('start_server') }}" method="post" id="form1">
+                <div class="card-body">
+                  <form>
+                    <div class="row">
+                      <div class="col-md-4 pr-md-1"">
+                        <div class="form-group">
+                          <label>Attack Type</label>
+                          <input type="text" name="attack-type" id="attack-type" class="form-control" disabled="" placeholder="Attack Type" value="L7 UDP">
+                        </div>
+                      </div>
+                      <div class="col-md-4 pr-md-3.5"">
+                        <div class="form-group">
+                          <label>Bypass</label>
+                          <input type="text" name="bypass-type" id="bypass-type" class="form-control" disabled="" placeholder="Bypass Type" value="None">
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-4 pr-md-1">
+                        <div class="form-group">
+                          <label>IP Address</label>
+                          <input type="text" name="ip-address"  id="ip-address" class="form-control" placeholder="IP Address" value="0.0.0.0">
+                        </div>
+                      </div>
+                      <div class="col-md-4 pr-md-3.5">
+                        <div class="form-group">
+                          <label>Port</label>
+                          <input type="text" name="port" id="port" class="form-control" placeholder="Port" value="80">
+                        </div>
+                      </div>
+                      <div class="col-md-4 pr-md-1">
+                        <div class="form-group">
+                          <label>Time</label>
+                          <input type="text" name="attack-time"  id="attack-time" class="form-control" placeholder="Attack Time" value="300">
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+                <div class="card-footer">
+                  {% if started == True %}
+                    <button class="btn btn-fill btn-default">Attack in progress</button>
+                  {% else %}
+                    <button type="submit" form="form1" class="btn btn-fill btn-primary">Launch Attack</button>
+                  {% endif %}
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <div class="card card-chart">
+              <div class="card-header ">
+                <div class="row">
+                  <div class="col-sm-6 text-left">
+                    <h5 class="card-category">Bot Uplift Graph</h5>
+                    <h2 class="card-title">Connections</h2>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="btn-group btn-group-toggle float-right" data-toggle="buttons">
+                      <label class="btn btn-sm btn-primary btn-simple active" id="0">
+                        <input type="radio" name="options" checked>
+                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">Alive</span>
+                        <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-single-02"></i>
+                        </span>
+                      </label>
+                      <label class="btn btn-sm btn-primary btn-simple" id="1">
+                        <input type="radio" class="d-none d-sm-none" name="options">
+                        <span class="d-none d-sm-block d-md-block d-lg-block d-xl-block">All</span>
+                        <span class="d-block d-sm-none">
+                          <i class="tim-icons icon-gift-2"></i>
+                        </span>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartBig1"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Total Connections</h5>
+                <h3 class="card-title"><i class="tim-icons icon-bell-55 text-primary"></i> 3</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartLinePurple"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Total Users</h5>
+                <h3 class="card-title"><i class="tim-icons icon-delivery-fast text-info"></i> 4</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="CountryChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-4">
+            <div class="card card-chart">
+              <div class="card-header">
+                <h5 class="card-category">Admins</h5>
+                <h3 class="card-title"><i class="tim-icons icon-send text-success"></i> 2</h3>
+              </div>
+              <div class="card-body">
+                <div class="chart-area">
+                  <canvas id="chartLineGreen"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="fixed-plugin">
+    <div class="dropdown show-dropdown">
+      <a href="#" data-toggle="dropdown">
+        <i class="fa fa-cog fa-2x"> </i>
+      </a>
+      <ul class="dropdown-menu">
+        <li class="header-title"> SIDEBAR COLOR</li>
+        <li class="adjustments-line">
+          <a href="javascript:void(0)" class="switch-trigger background-color">
+            <div class="badge-colors text-center">
+              <span class="badge filter badge-primary active" data-color="primary"></span>
+              <span class="badge filter badge-info" data-color="blue"></span>
+              <span class="badge filter badge-success" data-color="green"></span>
+            </div>
+            <div class="clearfix"></div>
+          </a>
+        </li>
+        <li class="adjustments-line text-center color-change">
+          <span class="color-label">LIGHT MODE</span>
+          <span class="badge light-badge mr-2"></span>
+          <span class="badge dark-badge ml-2"></span>
+          <span class="color-label">DARK MODE</span>
+        </li>
+        <li class="button-container">
+          <a href="https://github.com/codeuk" target="_blank" class="btn btn-default btn-block btn-round">MY GITHUB</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <!--   Core JS Files   -->
+  <script src="../assets/js/core/jquery.min.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
+  <!--  Google Maps Plugin    -->
+  <!-- Place this tag in your head or just before your close body tag. -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+  <!-- Chart JS -->
+  <script src="../assets/js/plugins/chartjs.min.js"></script>
+  <!--  Notifications Plugin    -->
+  <script src="../assets/js/plugins/bootstrap-notify.js"></script>
+  <!-- Control Center for Black Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/black-dashboard.min.js?v=1.0.0"></script><!-- Black Dashboard DEMO methods, don't include it in your project! -->
+  <script src="../assets/demo/demo.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $().ready(function() {
+        $sidebar = $('.sidebar');
+        $navbar = $('.navbar');
+        $main_panel = $('.main-panel');
+
+        $full_page = $('.full-page');
+
+        $sidebar_responsive = $('body > .navbar-collapse');
+        sidebar_mini_active = true;
+        white_color = false;
+
+        window_width = $(window).width();
+
+        fixed_plugin_open = $('.sidebar .sidebar-wrapper .nav li.active a p').html();
+
+        $('.fixed-plugin a').click(function(event) {
+          if ($(this).hasClass('switch-trigger')) {
+            if (event.stopPropagation) {
+              event.stopPropagation();
+            } else if (window.event) {
+              window.event.cancelBubble = true;
+            }
+          }
+        });
+
+        $('.fixed-plugin .background-color span').click(function() {
+          $(this).siblings().removeClass('active');
+          $(this).addClass('active');
+
+          var new_color = $(this).data('color');
+
+          if ($sidebar.length != 0) {
+            $sidebar.attr('data', new_color);
+          }
+
+          if ($main_panel.length != 0) {
+            $main_panel.attr('data', new_color);
+          }
+
+          if ($full_page.length != 0) {
+            $full_page.attr('filter-color', new_color);
+          }
+
+          if ($sidebar_responsive.length != 0) {
+            $sidebar_responsive.attr('data', new_color);
+          }
+        });
+
+        $('.switch-sidebar-mini input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (sidebar_mini_active == true) {
+            $('body').removeClass('sidebar-mini');
+            sidebar_mini_active = false;
+            blackDashboard.showSidebarMessage('Sidebar mini deactivated...');
+          } else {
+            $('body').addClass('sidebar-mini');
+            sidebar_mini_active = true;
+            blackDashboard.showSidebarMessage('Sidebar mini activated...');
+          }
+
+          var simulateWindowResize = setInterval(function() {
+            window.dispatchEvent(new Event('resize'));
+          }, 180);
+
+          setTimeout(function() {
+            clearInterval(simulateWindowResize);
+          }, 1000);
+        });
+
+        $('.switch-change-color input').on("switchChange.bootstrapSwitch", function() {
+          var $btn = $(this);
+
+          if (white_color == true) {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').removeClass('white-content');
+            }, 900);
+            white_color = false;
+          } else {
+
+            $('body').addClass('change-background');
+            setTimeout(function() {
+              $('body').removeClass('change-background');
+              $('body').addClass('white-content');
+            }, 900);
+
+            white_color = true;
+          }
+        });
+
+        $('.light-badge').click(function() {
+          $('body').addClass('white-content');
+        });
+
+        $('.dark-badge').click(function() {
+          $('body').removeClass('white-content');
+        });
+      });
+    });
+  </script>
+  <script>
+    $(document).ready(function() {
+      demo.initDashboardPageCharts();
+    });
+  </script>
+</body>
+
+</html>
