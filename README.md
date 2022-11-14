@@ -6,7 +6,7 @@ I've prewritten malware agents/connectors in the following languages:
   - golang
   - c
 
-*the malware victim/connector files will only be released when the project is complete (i've just started it)*
+*the malware victim/connector files in this repository are written poorly and will be rewritten soon*
 
 # .img
 
@@ -15,5 +15,7 @@ I've prewritten malware agents/connectors in the following languages:
 ![image](https://user-images.githubusercontent.com/117268252/201789454-ca64e506-6f02-4a0b-a973-dcefc53775e7.png)
 
 ![image](https://user-images.githubusercontent.com/117268252/201790163-96168ff0-544c-40af-b7da-224a2adc03ca.png)
+
+![image](https://user-images.githubusercontent.com/117268252/201790707-645450e9-e61e-439c-ae75-8981faa4de59.png)
 
 ![image](https://user-images.githubusercontent.com/117268252/201790090-1ae9f756-2eb6-4672-bef3-2ec568104224.png)
