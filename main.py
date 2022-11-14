@@ -81,7 +81,7 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 			if 'loggedin' not in session:
 				return redirect(url_for('login'))
 
-			msg = "Note: After starting the server, you'll not be redirected to the dashboard automatically, so just click it manually"\
+			msg = "Note: After starting the server, you wont be redirected to the dashboard automatically, so just click it manually"\
 				if not self._started else "Warning: Server already started!"
 
 			return render_template("server.html",
