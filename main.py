@@ -182,7 +182,7 @@ class Tantalus(Login, Socket, Dataclass, SQL):
 			new_username = request.form['new_username']
 			current_password = request.form['conf_password']
 
-			return new_username, current_password
+			return "unfinished"
 
 		clear()
 		os.system('title Tantalus ^| Waiting for server creation')
