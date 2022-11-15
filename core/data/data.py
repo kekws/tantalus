@@ -24,13 +24,13 @@ class Dataclass(SQL):
         """bot connection dataclass
 
         :param int id: primary key
-		:param str ip: ip address
+        :param str ip: ip address
         :param int port: port connected from
         :param str username: bot pc username
         :param str os: operating system
         :param str connected: time (utc) bot connected
-		:return: bot object
-		:rtype: object
+        :return: bot object
+        :rtype: object
         """
 
         id: int
@@ -45,12 +45,12 @@ class Dataclass(SQL):
         """user account dataclass
 
         :param int id: primary key
-		:param str username: account username
+        :param str username: account username
         :param str password: account password
         :param bool admin: access level
         :param str secret: application secret
-		:return: user object
-		:rtype: object
+        :return: user object
+        :rtype: object
         """
 
         id: int
@@ -62,11 +62,11 @@ class Dataclass(SQL):
     def add_user(data, username: str, password: str, admin: bool=False) -> list[bool, str]:
         """store data in the session_users and accounts database using the User dataclass
 
-		:param str username: account username
+        :param str username: account username
         :param str password: account password
         :param bool admin: access level
-		:return: bool if validated, success or error
-		:rtype: list[bool, str]
+        :return: bool if validated, success or error
+        :rtype: list[bool, str]
         """
 
         new_user = data.User(id=len(data.session_users)+1, username=username,
@@ -81,12 +81,12 @@ class Dataclass(SQL):
     def validate_user(data, username: str, password: str, admin: bool=False) -> list[bool, str]:
         """check if a supplied username and password are fit for use
 
-		:param str username: account username
+        :param str username: account username
         :param str password: account password
         :param bool admin: access level
-		:return: bool if user validated, error message
-		:rtype: list[bool, str] or bool
-		"""
+        :return: bool if user validated, error message
+        :rtype: list[bool, str] or bool
+	"""
 
         if len(username) < 3:
             return False, "user length too short"
@@ -108,10 +108,10 @@ class Dataclass(SQL):
     def compare_logins(data, username: str, password: str) -> list[bool, bool]:
         """compare logins using SQL.fetch_user(username, password)
 
-		:param str username: account username to match
+        :param str username: account username to match
         :param str password: account password to match
-		:return: user exists bool, admin access bool
-		:rtype: list[bool, bool]
+        :return: user exists bool, admin access bool
+        :rtype: list[bool, bool]
         """
 
         account = data.fetch_user(username, password)
