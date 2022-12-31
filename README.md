@@ -7,7 +7,7 @@ I've written malware agents/connectors in the following languages:
   - c
   - more in the future
 
-*the malware victim/connector files in this repository are written poorly and will be rewritten soon*
+*the malware victim/connector files in this repository are written poorly and will be rewritten soon (when other kekws projects are finished)*
 
 # .img
 
